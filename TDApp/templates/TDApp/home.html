@@ -1,0 +1,40 @@
+{% extends 'TDApp/base.html' %}
+
+{% block title %}<h3>HOME</h3>{% endblock title%}
+
+
+{% block content %}
+        <p>
+            <a href="{% url "add" %}" class='add'>Add a task</a>
+        </p>
+        {% if messages%}
+            {% for message in messages%}
+                <ul class="messages">
+                    <li>{{ message }}</li>
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </div>
+        {% for task in tasks %}
+            {% if task.completed %}
+                <table>
+                    <tr class='completed'>
+                        <td>{{ task.task }}</td>
+                        <td class="cmplt"><a href="{% url 'uncross' task.id %}">Completed</a></td>
+                        <td><a href="{% url 'delete' task.id %}">Delete</a></td>
+                    </tr>
+                </table>
+            
+            {% else %}
+                    <table>
+                    <tr class='uncompleted'>
+                        <td>{{ task.task }}</td>
+                        <td class="cmplt"><a href="{% url 'cross_off' task.id %}">Uncompleted</a></td> 
+                        <td><a href="{% url 'delete' task.id %}">Delete</a></td>
+                    </tr>
+                </table>
+            {% endif %}   
+        {% endfor %} 
+    
+    
+{% endblock content %}
